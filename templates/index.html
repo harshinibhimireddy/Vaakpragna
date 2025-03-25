@@ -3,81 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eye Tracking & Grammar Checker</title>
+    <title>AI Public Speaking & Debate Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f8f9fa;
             text-align: center;
-            background-color: #ffe9de;
+            height: auto;
         }
+
         .navbar {
-            background-color: white;
+            background-color: black;
             width: auto;
-            height: 200px;
-            margin-top: 50px;
-            box-shadow: 2px 2px 2px 2px pink;
-        }
-        .navbar1 {
+            height: 100px;
             display: flex;
-            justify-content: center;
-            margin-top: 150px;
-            background-color: green;
-            padding: 10px;
-            width: 500px;
-            margin-left: 300px;
-            height: 300px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 2px 2px 2px 2px rgb(34, 32, 32);
         }
-        .navbar1 button {
-            background: none;
-            border: solid white 2px;
+
+        .navbar p {
             color: white;
-            padding: 15px 20px;
-            font-size: 18px;
+            font-family: 'Merriweather', serif;
+            font-size: 40px;
+            position:relative;
+            left: 30px;
+        }
+
+        .navbar button {
+            background: black;
+            color:white;
+            font-size:20px;
+            width: 100px;
+            height: 50px;
+            border-radius: 20px;
+            
             cursor: pointer;
-            width: 200px;
-            height: 150px;
-            margin-right: 100px;
-            margin-top: 100px;
+            margin: 0 20px;
+            position: relative;
         }
-        .navbar1 button:hover {
-            background-color: #575757;
+        .navbar button:hover{
+            box-shadow: 2px 1px 2px 1px rgb(84, 63, 63)   ;
+            border: rgb(160, 147, 147)  2px solid;
         }
+
         .container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 80vh;
+            gap: 30px;
+            margin-top: 70px;
+            flex-wrap: wrap;
+            position: relative;
         }
-        .section {
-            display: none;
-            width: 45%;
-            padding: 20px;
+
+        .card {
+            width: 400px;
             background: white;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
         }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background: #000000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .card button:hover {
+            background: #007bff;
+        }
+        .debatecard {
+            width: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .debatecard:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .debatecard h2 {
+            margin-bottom: 15px;
+        }
+
+        .debatecard button {
+            background: #000000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .debatecard button:hover {
+            background: #007bff;
+        }
+        .debatecard p{
+            position: relative;
+            font-size: 18px;
+        }
+        
+
+        .section {
+            display: none;
+            margin-top: 20px;
+        }
+
         .active {
             display: block;
         }
-        #eye-status {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
+
+        #eye-video {
+            width: 50%;
+            border-radius: 5px;
+        }
+
+        textarea {
+            width: 50%;
+            padding: 10px;
             margin-top: 10px;
         }
-        #eye-video {
+
+        #corrected-text, #judgement {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .merriweather {
+            font-family: 'Merriweather', serif;
+            position:relative;
+            top: 12px;
+            font-size: 25px;
+        }
+        .card p{
+            position: relative;
+            font-size: 18px;
+        }
+        #chatFrame {
+            display: none;
             width: 100%;
+            height: 700px;
+            border: none;
         }
-        button:hover {
-            background: linear-gradient(to right, #fad0c4, #ff9a9e);
-            box-shadow: 4px 2px 4px 2px plum;
-            transform: scale(1.1);
-            transition: all 0.3s ease-in-out;
+        #checkGrammar,#speak{
+            background: #000000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 20px;
         }
+        #checkGrammar:hover{
+            background: #007bff;
+        }
+        #speak:hover{
+            background: #007bff;
+        }
+
     </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <p>VAAKPRAGNA</p>
+        <div>
+            <button>Home</button>
+            <button>About</button>
+        </div>
+    </div>
+    <div><h3 class="merriweather">“The future of public speaking is interactive, AI-driven, and accessible to everyone<br> Let’s empower millions to speak with confidence<br>— Join us in making this vision a reality!”</h3> </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Text Analyzer</h2>
+           
+            <img style="width:260px;height:180px;border-radius: 10px;" src="static/images/grammarcheck.jpg">
+            <p>To check and correct your grammar mistakes.<br><br>CLICK HERE</p>
+            <button onclick="showSection('grammar-checker')">Open Text Analyzer</button>
+        </div>
+
+        <div class="card">
+            <h2>Video Analyzer</h2>
+            <img style="width:260px;height:180px;border-radius: 10px;" src="static/images/eyetracker.jpg">
+            <p>To track your eye movements in real time.<br><br>    CLICK HERE</p>
+            <button onclick="showSection('eye-tracking')">Start Video Analyzer</button>
+        </div>
+
+        
+        <div class="debatecard">
+            <h2>Debate Partner</h2>
+            <img style="width:260px;height:180px;border-radius: 10px;" src="static/images/debate.jpg">
+            <p>To check your Debate Skill.<br><br>CLICK HERE</p>
+            <button onclick="showChatbot()">Debate Partner</button>
+            <iframe 
+                id="chatFrame" 
+                src="https://www.chatbase.co/chatbot-iframe/Q3EU1tbtDrbBW4lxXgt8p">
+            </iframe>
+            
+        </div>
+    </div>
+
+    <div id="eye-tracking" class="section">
+        <h2>Eye Movement Tracker</h2>
+        
+        <p>Press 'Esc' to stop tracking.</p>
+        <img id="eye-video" width="100%" src="">
+        <h3 id="eye-status">Eye Status: Neutral</h3>
+    </div>
+
+    <div id="grammar-checker" class="section">
+        <h2>Grammar Checker</h2>
+        <textarea id="text-input" placeholder="Enter text here..." rows="4" cols="50"></textarea><br>
+        <button id="checkGrammar">Check Grammar</button>
+        <button id="speak"> Speak</button>
+        <h3>Corrected Text</h3>
+        <div id="corrected-text"></div>
+        <h3>Judgment</h3>
+        <div id="judgement"></div>
+    </div>
+
     <script>
         function showSection(sectionId) {
             document.getElementById('eye-tracking').classList.remove('active');
@@ -89,9 +266,8 @@
                 updateEyeStatus();
             } else {
                 stopEyeTracking();
+                document.getElementById(sectionId).classList.add('active');
             }
-
-            document.getElementById(sectionId).classList.add('active');
         }
 
         function startEyeTracking() {
@@ -113,6 +289,9 @@
                 })
                 .catch(error => console.error("Error fetching eye status:", error));
         }
+        function showChatbot() {
+            document.getElementById("chatFrame").style.display = "block";
+        }
 
         document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener("keydown", function(event) {
@@ -128,6 +307,7 @@
                     alert("Please enter some text.");
                     return;
                 }
+
                 fetch("/check_grammar", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -137,7 +317,7 @@
                 .then(data => {
                     let output = "";
                     data.corrections.forEach(correction => {
-                        output += ${correction.message} → ${correction.replacement};
+                        output += `${correction.message} → ${correction.replacement}\n`;
                     });
                     document.getElementById("corrected-text").innerText = output || "No grammar mistakes!";
                     document.getElementById("judgement").innerText = data.judgment;
@@ -148,7 +328,6 @@
                 });
             });
 
-            // Speech-to-Text (Voice Input)
             if ("webkitSpeechRecognition" in window) {
                 let recognition = new webkitSpeechRecognition();
                 recognition.continuous = false;
@@ -162,45 +341,11 @@
                 recognition.onresult = function (event) {
                     document.getElementById("text-input").value = event.results[0][0].transcript;
                 };
-
-                recognition.onerror = function (event) {
-                    alert("Speech recognition error: " + event.error);
-                };
             } else {
                 document.getElementById("speak").style.display = "none";
             }
         });
     </script>
-</head>
-<body>
-    <h3>train your public speaking</h3>
-    <div class="navbar">
-        
-        <button style="background:pink; margin-left:150px; width:100px; height:50px; margin-top:60px; border-radius: 20px; box-shadow: 2px 1px 2px 1px plum; border: plum 2px solid;">hello</button>
-    </div>
-    <div class="navbar1">
-        <button onclick="showSection('eye-tracking')">Eye Tracker</button>
-        <button onclick="showSection('grammar-checker')">Grammar Checker</button>
-    </div>
 
-    <div class="container">
-        <div id="eye-tracking" class="section">
-            <h2>Eye Movement Tracker</h2>
-            <p>Press 'Esc' to stop tracking.</p>
-            <img id="eye-video" width="100%" src="">
-            <h3 id="eye-status">Eye Status: Neutral</h3>
-        </div>
-
-        <div id="grammar-checker" class="section">
-            <h2>Grammar Checker</h2>
-            <textarea id="text-input" placeholder="Enter text here..." rows="4" cols="50"></textarea><br>
-            <button id="checkGrammar">Check Grammar</button>
-            <button id="speak">🎤 Speak</button>
-            <h3>Corrected Text</h3>
-            <div id="corrected-text"></div>
-            <h3>Judgment</h3>
-            <div id="judgement"></div>
-        </div>
-    </div>
 </body>
 </html>
