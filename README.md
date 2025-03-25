@@ -1,93 +1,47 @@
-#vaakpragna
-Vaakpragna is an AI-powered application designed to help individuals overcome their fear of public speaking. It provides real-time feedback on speech clarity, pace, tone, and facial expressions. The platform also offers text correction and judgment features, making it a comprehensive tool for improving both verbal and written communication skills.
-✅ 1. Real-time Speech Analysis:
+# Vaakpragna
+Problem Statement
 
-Analyzes voice tone, pitch, and pace during speech.
+Debating, public speaking, and interviewing are essential skills for personal and professional achievement. Yet, most individuals have problems with nervousness, poor vocabulary, weak articulation, or fuzzy thinking. Conventional coaching is expensive, time-consuming, and out of reach.
+FluentAI seeks to deliver an AI-based solution that provides real-time feedback, customized improvement plans, and an interactive practice space to improve communication skills.
 
-Detects filler words, stutters, and awkward pauses.
+Solution Overview
 
-Provides real-time feedback for improvement.
+FluentAI is a public speaking AI assistant that assists the user in developing speaking skills using:
 
-✅ 2. Video and Facial Expression Analysis:
+->Seminar Mode: AI listens to the user's speech, evaluates clarity, vocabulary, articulation, and pace, and offers feedback for enhancement.
 
-Uses computer vision to analyze facial expressions.
+->Debate Mode: AI plays the role of a debate opponent, presenting counterarguments and rating the user's reasoning, coherence, and confidence.
 
-Detects eye contact, gestures, and body language.
+->AI Feedback: Utilizes speech recognition, NLP, and computer vision to evaluate speech clarity, argument strength, and body language.
 
-Provides feedback on confidence and engagement.
+->Progress Tracking: Monitors progress over time, ranks users, and offers motivational insights.
 
-✅ 3. Grammar and Clarity Correction:
+Technologies Used
 
-Takes both voice and text inputs.
+->Programming Languages : 
 
-Provides corrected text output with improved grammar and sentence structure.
+--Python (for backend development) 
 
-Gives judgment scores on clarity and accuracy.
+--JavaScript (HTML, CSS, JS in templates) (for frontend interaction)
 
-✅ 4. AI-Powered Debate Partner:
+->Frameworks & Libraries :
 
-Engages users in AI-driven debates.
+--Flask – Web framework for handling HTTP requests.
 
-Challenges viewpoints with logical counter-arguments.
+--OpenCV – For real-time video processing and image manipulation.
 
-Improves critical thinking and articulation skills.
+--Dlib – For facial landmark detection (eye tracking).
 
-✅ 5. Interview Practice Mode:
+--NumPy – For numerical operations and data processing.
 
-Simulates mock interview sessions.
+--Requests – For API communication (Grammar checking using LanguageTool API).
 
-Asks job-specific questions and evaluates response quality.
+-->APIs & External Services:
 
-Provides detailed feedback on communication style and content.
+--LanguageTool API – For grammar checking and corrections.
 
-✅ 6. Personalized Feedback Reports:
+--OpenCV & Dlib Models – For eye-tracking and facial landmark detection.
 
-Generates comprehensive reports with scores for tone, pace, clarity, and confidence.
+->Chatbase - It is used for training and modelling a chatbot.
 
-Suggests personalized improvement tips.
-
-✅ 7. User-friendly Interface:
-
-Simple and intuitive UI built with Flask and Streamlit.
-
-Easy-to-navigate features with seamless input-output flow.
-Tech Stack:
-
-Backend: Python, Flask
-
-Speech-to-Text: Python speech libraries (e.g., SpeechRecognition)
-
-Text Correction: Libraries like Grammarly API, language_tool, or Gingerit
-
-Judgment System: Custom algorithm or sentiment analysis model
-
-Use Cases:
-🔹 Improving written communication by correcting grammar and providing quality feedback.
-🔹 Assisting students, writers, and professionals with quick text improvement.
-🔹 Enhancing AI-driven public speaking or language learning platforms.
-
-⚙️ Vaakpragna Tech Stack
-
-✅ 1. Frontend:
-
-Framework: Streamlit (for user-friendly interface)
-
-UI/UX: HTML, CSS, JavaScript (for styling and animations)
-
-✅ 2. Backend:
-
-Framework: Flask (for handling input/output and API interactions)
-
-Language: Python
-
-✅ 3. AI/ML Libraries:
-
-Speech Recognition: SpeechRecognition, pydub (for voice-to-text conversion)
-
-NLP and Text Correction: language_tool, TextBlob, Grammarly API, or Gingerit
-
-Computer Vision: OpenCV, dlib (for facial expression analysis)
-
- 4. Data Processing and Analysis:
-
-NumPy, Pandas: For data manipulation and report generation
+API Documentation:(Link)
