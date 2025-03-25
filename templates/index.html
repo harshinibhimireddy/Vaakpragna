@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Tracking & Grammar Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #ffe9de;
+        }
+        .navbar {
+            background-color: white;
+            width: auto;
+            height: 200px;
+            margin-top: 50px;
+            box-shadow: 2px 2px 2px 2px pink;
+        }
+        .navbar1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 150px;
+            background-color: green;
+            padding: 10px;
+            width: 500px;
+            margin-left: 300px;
+            height: 300px;
+        }
+        .navbar1 button {
+            background: none;
+            border: solid white 2px;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 200px;
+            height: 150px;
+            margin-right: 100px;
+            margin-top: 100px;
+        }
+        .navbar1 button:hover {
+            background-color: #575757;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        .section {
+            display: none;
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+        .active {
+            display: block;
+        }
+        #eye-status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+        #eye-video {
+            width: 100%;
+        }
+        button:hover {
+            background: linear-gradient(to right, #fad0c4, #ff9a9e);
+            box-shadow: 4px 2px 4px 2px plum;
+            transform: scale(1.1);
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+    <script>
+        function showSection(sectionId) {
+            document.getElementById('eye-tracking').classList.remove('active');
+            document.getElementById('grammar-checker').classList.remove('active');
+
+            if (sectionId === "eye-tracking") {
+                document.getElementById(sectionId).classList.add('active');
+                startEyeTracking();
+                updateEyeStatus();
+            } else {
+                stopEyeTracking();
+            }
+
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function startEyeTracking() {
+            document.getElementById("eye-video").src = "/video_feed";
+            fetch("/start_eye_tracking", { method: "POST" });
+        }
+
+        function stopEyeTracking() {
+            document.getElementById("eye-video").src = "";
+            fetch("/stop_eye_tracking", { method: "POST" });
+        }
+
+        function updateEyeStatus() {
+            fetch("/get_eye_status")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("eye-status").innerText = "Eye Status: " + data.eye_status;
+                    setTimeout(updateEyeStatus, 500);
+                })
+                .catch(error => console.error("Error fetching eye status:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Escape") {
+                    stopEyeTracking();
+                    document.getElementById('eye-tracking').classList.remove('active');
+                }
+            });
+
+            document.getElementById("checkGrammar").addEventListener("click", function () {
+                let text = document.getElementById("text-input").value.trim();
+                if (!text) {
+                    alert("Please enter some text.");
+                    return;
+                }
+                fetch("/check_grammar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: text })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let output = "";
+                    data.corrections.forEach(correction => {
+                        output += ${correction.message} → ${correction.replacement};
+                    });
+                    document.getElementById("corrected-text").innerText = output || "No grammar mistakes!";
+                    document.getElementById("judgement").innerText = data.judgment;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("corrected-text").innerText = "Error processing request.";
+                });
+            });
+
+            // Speech-to-Text (Voice Input)
+            if ("webkitSpeechRecognition" in window) {
+                let recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = "en-US";
+
+                document.getElementById("speak").addEventListener("click", function () {
+                    recognition.start();
+                });
+
+                recognition.onresult = function (event) {
+                    document.getElementById("text-input").value = event.results[0][0].transcript;
+                };
+
+                recognition.onerror = function (event) {
+                    alert("Speech recognition error: " + event.error);
+                };
+            } else {
+                document.getElementById("speak").style.display = "none";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h3>train your public speaking</h3>
+    <div class="navbar">
+        
+        <button style="background:pink; margin-left:150px; width:100px; height:50px; margin-top:60px; border-radius: 20px; box-shadow: 2px 1px 2px 1px plum; border: plum 2px solid;">hello</button>
+    </div>
+    <div class="navbar1">
+        <button onclick="showSection('eye-tracking')">Eye Tracker</button>
+        <button onclick="showSection('grammar-checker')">Grammar Checker</button>
+    </div>
+
+    <div class="container">
+        <div id="eye-tracking" class="section">
+            <h2>Eye Movement Tracker</h2>
+            <p>Press 'Esc' to stop tracking.</p>
+            <img id="eye-video" width="100%" src="">
+            <h3 id="eye-status">Eye Status: Neutral</h3>
+        </div>
+
+        <div id="grammar-checker" class="section">
+            <h2>Grammar Checker</h2>
+            <textarea id="text-input" placeholder="Enter text here..." rows="4" cols="50"></textarea><br>
+            <button id="checkGrammar">Check Grammar</button>
+            <button id="speak">🎤 Speak</button>
+            <h3>Corrected Text</h3>
+            <div id="corrected-text"></div>
+            <h3>Judgment</h3>
+            <div id="judgement"></div>
+        </div>
+    </div>
+</body>
+</html>
