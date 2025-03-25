@@ -44,4 +44,3 @@ Technologies Used
 
 ->Chatbase - It is used for training and modelling a chatbot.
 
-API Documentation:(Link)
